@@ -38,7 +38,8 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            // 'provider' => 'users',
+            'provider' => 'q8_employee',
         ],
     ],
 
@@ -60,9 +61,9 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'q8_employee' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => env('AUTH_MODEL', App\Models\q8_employee::class),
         ],
 
         // 'users' => [
@@ -91,8 +92,8 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'q8_employee' => [
+            'provider' => 'q8_employee',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,
