@@ -2,12 +2,11 @@
 
 Use Git Desktop to Create New Repository
 
+copy env.example and create new .env
 
 use Command
 
 Composer install
-
-copy env.example and create new .env
 
 php artisan key:generate
 
