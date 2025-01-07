@@ -77,6 +77,7 @@
 
             <div class="container-xxl flex-grow-1 container-p-y">
               @yield('content')
+              @livewireScripts
             </div>
             <!-- / Content -->
 
@@ -128,9 +129,10 @@
     <script src="../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../assets/js/dashboards-analytics.js"></script>
+    {{-- <script src="../assets/js/ui-toasts.js"></script> --}}
 
     <!-- Place this tag before closing body tag for github widget button. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
   </body>
 </html>

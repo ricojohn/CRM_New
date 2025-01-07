@@ -30,6 +30,8 @@
       selectedType = document.querySelector('#selectTypeOpt').value;
       selectedPlacement = document.querySelector('#selectPlacement').value.split(' ');
 
+      console.log(selectedType);
+      
       toastPlacementExample.classList.add(selectedType);
       DOMTokenList.prototype.add.apply(toastPlacementExample.classList, selectedPlacement);
       toastPlacement = new bootstrap.Toast(toastPlacementExample);
