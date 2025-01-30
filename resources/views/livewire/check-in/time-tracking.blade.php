@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" >
     <div class="card-body bg-primary ">
       <div class="row">
         <div class="col-md-6 ">
@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-6 ">
           <h4 style="text-align: right;">
-            <a href="https://q8marketingcrm.com/record/" target="_blank" class="nav-link">
+            <a href="{{route('recording.record')}}" target="_blank" class="nav-link">
             <button class="btn btn-danger">
                 <i class="nav-icon fa fa-camera" aria-hidden="true"></i>&nbsp;
                 Start Recording
@@ -54,8 +54,8 @@
               class="btn btn-danger {{$checkoutbtn}}" 
               value="Time Out"
               name="check_out" 
+              wire:click="checkOut({{$timeTracking ? $timeTracking->id : ''}})"
               onclick="return confirm('Are you sure you want to check out?')" 
-              wire:click="checkOut"
               >
         </div>
       {{-- </form> --}}
@@ -105,6 +105,7 @@
          // Get the data from the event (which was passed as an object)
         let status = event.__livewire.params[0].status;  
         let message = event.__livewire.params[0].message; 
+        let check = event.__livewire.params[0].check; 
 
         selectedType = status;  // Choose the success type class you want
         selectedPlacement = ['top-0', 'start-50', 'translate-middle-x'];  // You can modify placement as needed
@@ -116,11 +117,13 @@
         toastPlacement.show();
 
         // Add delay after showing the toast
-        if (status == 'bg-success') {
+        if(check == 'in'){
+          if (status == 'bg-success') {
             // Delay window.open after the toast has shown (e.g., 2 seconds)
             setTimeout(() => {
                 window.open("https://q8marketingcrm.com/record/", "_blank");
             }, 2000);  // Adjust 3000 for your desired delay
+          }
         }
     });
 </script>

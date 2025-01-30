@@ -12,7 +12,6 @@ class RecordingTable extends Component
 
     public function mount()
     {
-        
         $this->loadRecordings();
     }
 
@@ -24,7 +23,7 @@ class RecordingTable extends Component
             $records = DB::table('recordings')
                 ->where('date', $date)
                 ->where('employee_id', $employeeId)
-                ->where('status', '')
+                ->where('status', null)
                 ->orderBy('id', 'desc')
                 ->get();
 
@@ -36,6 +35,7 @@ class RecordingTable extends Component
 
     public function render()
     {
+        $this->loadRecordings();
         return view('livewire.check-in.recording-table');
     }
 }

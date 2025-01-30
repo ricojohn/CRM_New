@@ -52,8 +52,8 @@
                   </div>
                 </div>
                 <div class="flex-grow-1">
-                  <h6 class="mb-0">{{ session('user')->first_name }} {{ session('user')->last_name }}</h6>
-                  <small class="text-muted">{{ session('user')->position }}</small>
+                  <h6 class="mb-0">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</h6>
+                  <small class="text-muted">{{ auth()->user()->position }}</small>
                 </div>
               </div>
             </a>

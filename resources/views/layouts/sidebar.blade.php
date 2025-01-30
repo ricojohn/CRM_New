@@ -1,5 +1,5 @@
 <div class="app-brand demo">
-    <a href="index.html" class="app-brand-link">
+    <a href="" class="app-brand-link">
       <span class="app-brand-logo demo">
         <svg
           width="25"
@@ -62,56 +62,41 @@
   <ul class="py-1 menu-inner">
     <!-- Dashboards -->
     <li class="menu-item {{ request()->is('timetracking*') ? 'active open' : '' }}">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
+      <a href="" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-home-smile"></i>
-        <div class="text-truncate" data-i18n="Dashboards">Time Tracking</div>
+        <div class="text-truncate" data-i18n="Time Tracking">Time Tracking</div>
         {{-- <span class="badge rounded-pill bg-danger ms-auto">5</span> --}}
       </a>
       <ul class="menu-sub">
         <li class="menu-item {{ request()->is('timetracking/checkin') ? 'active' : '' }}">
-          <a href="" class="menu-link">
-            <div class="text-truncate" data-i18n="Analytics">Checkin In/Out</div>
+          <a href="{{route('timetracking.checkin')}}" class="menu-link">
+            <div class="text-truncate" data-i18n="Checkin In/Out">Checkin In/Out</div>
           </a>
         </li>
         <li class="menu-item {{ request()->is('timetracking/amendments') ? 'active' : '' }}">
-          <a href="" class="menu-link">
-            <div class="text-truncate" data-i18n="Analytics">Amendments</div>
+          <a href="{{route('timetracking.amendments')}}" class="menu-link">
+            <div class="text-truncate" data-i18n="Amendments">Amendments</div>
           </a>
         </li>
       </ul>
     </li>
 
-    <!-- Layouts -->
-    <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons bx bx-layout"></i>
-        <div class="text-truncate" data-i18n="Layouts">Layouts</div>
+    <!-- Employee -->
+    <li class="menu-item {{ request()->is('employee*') ? 'active open' : '' }}">
+      <a href="" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-group"></i>
+        <div class="text-truncate" data-i18n="Employee">Employee</div>
       </a>
 
       <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="layouts-without-menu.html" class="menu-link">
-            <div class="text-truncate" data-i18n="Without menu">Without menu</div>
+        <li class="menu-item {{ request()->is('employee/employees') ? 'active' : '' }}">
+          <a href="{{route('employee.employees')}}" class="menu-link">
+            <div class="text-truncate" data-i18n="Employees">Employees</div>
           </a>
         </li>
-        <li class="menu-item">
-          <a href="layouts-without-navbar.html" class="menu-link">
-            <div class="text-truncate" data-i18n="Without navbar">Without navbar</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="layouts-fluid.html" class="menu-link">
-            <div class="text-truncate" data-i18n="Fluid">Fluid</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="layouts-container.html" class="menu-link">
-            <div class="text-truncate" data-i18n="Container">Container</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="layouts-blank.html" class="menu-link">
-            <div class="text-truncate" data-i18n="Blank">Blank</div>
+        <li class="menu-item {{ request()->is('employee/timesheet') ? 'active' : '' }}">
+          <a href="{{route('employee.timesheet')}}" class="menu-link">
+            <div class="text-truncate" data-i18n="Timesheet">Timesheet</div>
           </a>
         </li>
       </ul>

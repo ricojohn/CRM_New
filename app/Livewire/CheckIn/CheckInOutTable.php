@@ -11,6 +11,7 @@ class CheckInOutTable extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
+    protected $listeners = ['query' => '$refresh'];
     public function render()
     {
         $employee_id = auth()->user()->employee_id;

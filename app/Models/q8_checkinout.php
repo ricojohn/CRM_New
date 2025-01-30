@@ -17,4 +17,9 @@ class q8_checkinout extends Model
         'dateout',
         // Add any other fields you need
     ];
+
+    // public function employee()
+    // {
+    //     return $this->belongsTo(q8_employee::class, 'employee_id');
+    // }
 }

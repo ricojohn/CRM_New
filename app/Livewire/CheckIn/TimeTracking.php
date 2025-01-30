@@ -43,7 +43,7 @@ class TimeTracking extends Component
             $this->checkinbtn = 'd-none'; // Hide check-in button
             $this->checkoutbtn = ''; // Show check-out button
         }elseif($this->timeTracking && $this->timeTracking->check_in_time != ''  && $this->timeTracking->check_out_time != null ){
-            $this->checkinbtn = 'd-none'; // Hide check-in button
+            $this->checkinbtn = ''; // Hide check-in button
             $this->checkoutbtn = 'd-none'; // Show check-out button
         }
     }
@@ -67,18 +67,45 @@ class TimeTracking extends Component
 
             // Reload Time in
             $this->mount();
-            $this->dispatch('query', ['status' => 'bg-success', 'message' => 'Check In Success']);
+            $this->dispatch('query', ['status' => 'bg-success', 'message' => 'Check In Success', 'check' => 'in']);
 
         } catch (\Throwable $th) {
             //throw $th;
 
             $this->mount();
-            $this->dispatch('query', ['status' => 'bg-danger', 'message' => 'Check In Failed', 'errorMessage' => $th->getMessage()]);
+            $this->dispatch('query', ['status' => 'bg-danger', 'message' => 'Check In Failed', 'errorMessage' => $th->getMessage(), 'check' => 'in']);
         }
 
     }
 
+    public function checkOut($id)
+    {
+        $employee_id = auth()->user()->employee_id;
+        $timenow = Carbon::now()->format('H:i:s');
+
+        try {
+            //code...
+            DB::table('q8_checkinout')
+            ->where('employee_id', $employee_id)
+            ->where('id', $id)
+            ->where('date', $this->datetoday)
+            ->update([
+                'check_out_time' =>  $timenow,
+                'dateout' =>  $this->datetoday,
+            ]);
+
+            $this->checkinbtn = ''; // Show check-in button
+            $this->checkoutbtn = 'd-none'; // Hide check-out button
+
+            $this->mount();
+            $this->dispatch('query', ['status' => 'bg-success', 'message' => 'Check Out Success', 'check' => 'out']);
+        } catch (\Throwable $th) {
+            //throw $th;
+            $this->mount();
+            $this->dispatch('query', ['status' => 'bg-danger', 'message' => 'Check Out Failed', 'errorMessage' => $th->getMessage(), 'check' => 'out']);
+        }
         
+    }
 
     public function render()
     {
