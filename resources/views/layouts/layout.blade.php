@@ -18,6 +18,21 @@
 
     <meta name="description" content="" />
 
+    @vite(['resources/css/app.css', 'resources/css/custom.css', 'resources/js/app.js'])
+    <!-- Load jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Load Bootstrap Datepicker CSS -->
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/cupertino/jquery-ui.css">
+
+    <!-- Load Bootstrap Datepicker JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script> --}}
+
+    <!-- flatpickr -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_blue.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
@@ -46,7 +61,7 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
-  </head>
+  </head> 
 
   <body>
     <!-- Layout wrapper -->
@@ -70,6 +85,22 @@
           </nav>
 
           <!-- / Navbar -->
+
+          <!-- Toast with Placements -->
+          <div
+            class="m-2 bs-toast toast toast-placement-ex"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+            data-bs-delay="2000">
+            <div class="toast-header">
+              <i class="bx bx-bell me-2"></i>
+              <div class="me-auto fw-medium">Status</div>
+              <small>0 mins</small>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body"></div>
+          </div>
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
@@ -133,6 +164,8 @@
 
     <!-- Place this tag before closing body tag for github widget button. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
 
+     <!-- Add Bootstrap Datepicker JS -->
   </body>
 </html>

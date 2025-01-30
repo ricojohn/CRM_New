@@ -15,7 +15,7 @@ class Login extends Controller
         // Check if the user is already authenticated
         if (Auth::check()) {
         // Redirect them to the home page if logged in
-        return view('timetracking.checkin');
+        return redirect()->route('timetracking.checkin');
         }
 
         // Show the login form if not logged in
@@ -42,7 +42,7 @@ class Login extends Controller
           // Store user info in the session
           session()->put('user', $user);
     
-          return redirect()->route('checkin');
+          return redirect()->route('timetracking.checkin');
         }
     
         return back()->withErrors(['credentials' => 'Invalid login credentials']);
