@@ -37,40 +37,65 @@ class TimesheetTable extends Component
                 $search_end
             ]);
         }])->select('employee_id', 'first_name', 'last_name', 'position')
-        ->orderBy('first_name', 'asc')
+        // ->orderBy('first_name', 'asc')
         ->get();
 
         $this->headers = [];
         $this->days = [];
 
-        // Header Date
         for ($i = 0; $i < 7; $i++) {
             $date = Carbon::parse($this->search_date)->addDays($i);
             $this->headers[] = $date->format('m-d-Y');
             $this->days[] = $date->format('l');
         }
+        
+        // dd($this->employees);
 
-        // Body
-        foreach ($this->employees as $employee) {
-            $total_hours = 0;
-            $total_minutes = 0;
-            $total_seconds = 0;
+        foreach ($this->employees as $key => $value) {
+             // Header Date
 
             $timesheet_data = [];
-
-            if (count($employee->checkInOuts)  > 0) {
+            
                 
-
+                if (count($value->checkInOuts)  > 0) {
+                    try {
+                        //code...
+                        if($value->checkInOuts[$i]->date == $date->format('m-d-Y')){
+                            $timesheet_data[] = $value->checkInOuts[$i];
+                        }
+                    } catch (\Throwable $th) {
+                        //throw $th;
+                        $timesheet_data[] = null;
+                    }
+                }else{
+                    $timesheet_data[] = null;
+                }
                 
-            }
-
-            $this->timesheet[$employee->employee_id] = [
-                'name' => $employee->first_name . ' ' . $employee->last_name,
-                'position' => $employee->position,
+            
+            $this->timesheet[$value->employee_id] = [
+                'name' => $value->first_name . ' ' . $value->last_name,
+                'position' => $value->position,
                 'data' => $timesheet_data,
             ];
             
+            // // dd($value->checkInOuts);
+            // $timesheet_data = [];
+            // if (count($value->checkInOuts)  > 0) {
+            //     foreach($value->checkInOuts as $key2 => $checkInOuts){
+            //         if($checkInOuts->date == $date->format('m-d-Y')){
+            //             $timesheet_data[] = $checkInOuts;
+            //         }else{
+            //             $timesheet_data[] = '';
+            //         }
+            //     } 
+            // }else{
+            //     $timesheet_data[] = null;
+            // }
+
+            
         }
+
+        // dd($this->timesheet);
         $this->dispatch('search_date');
     }
 

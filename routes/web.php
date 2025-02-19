@@ -8,6 +8,8 @@ use App\Http\Controllers\Timetracking\amendments;
 use App\Http\Controllers\Recording\recordings;
 use App\Http\Controllers\Employee\employees;
 use App\Http\Controllers\Employee\timesheet;
+use App\Http\Controllers\Client\clientList;
+use App\Http\Controllers\Client\quotation;
 
 // Route::get('/test', function () {
 //     return view('index');
@@ -37,5 +39,17 @@ Route::middleware(['auth'])->group(function () {
     
         Route::get('/timesheet', [timesheet::class, 'index'])->name('employee.timesheet');
     });
+
+    Route::prefix('client')->group(function() {
+        Route::get('/clientlist', [clientList::class, 'index'])->name('client.clientlist');
+    
+        Route::get('/qoute', [quotation::class, 'index'])->name('client.qoute');
+    });
+
+    // Route::prefix('billing')->group(function() {
+    //     Route::get('/clientlist', [clientList::class, 'index'])->name('billing.clientlist');
+    
+    //     Route::get('/qoute', [quotation::class, 'index'])->name('billing.qoute');
+    // });
 });
 

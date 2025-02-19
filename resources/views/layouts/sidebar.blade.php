@@ -60,6 +60,14 @@
   <div class="menu-inner-shadow"></div>
 
   <ul class="py-1 menu-inner">
+    
+    <li class="menu-item">
+      <a href="" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-collection"></i>
+        <div class="text-truncate" data-i18n="Basic">Dashboard</div>
+      </a>
+    </li>
+
     <!-- Dashboards -->
     <li class="menu-item {{ request()->is('timetracking*') ? 'active open' : '' }}">
       <a href="" class="menu-link menu-toggle">
@@ -97,6 +105,53 @@
         <li class="menu-item {{ request()->is('employee/timesheet') ? 'active' : '' }}">
           <a href="{{route('employee.timesheet')}}" class="menu-link">
             <div class="text-truncate" data-i18n="Timesheet">Timesheet</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- Client/Projects -->
+    <li class="menu-item {{ request()->is('client*') ? 'active open' : '' }}">
+      <a href="" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-file"></i>
+        <div class="text-truncate" data-i18n="Client">Client/Projects</div>
+      </a>
+
+      <ul class="menu-sub">
+        <li class="menu-item {{ request()->is('client/clientlist') ? 'active' : '' }}">
+          <a href="{{route('client.clientlist')}}" class="menu-link">
+            <div class="text-truncate" data-i18n="Client">Client List</div>
+          </a>
+        </li>
+        <li class="menu-item {{ request()->is('client/qoute') ? 'active' : '' }}">
+          <a href="{{route('client.qoute')}}" class="menu-link">
+            <div class="text-truncate" data-i18n="Client">Quotation Builder</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- Billing -->
+    <li class="menu-item ">
+      <a href="" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-credit-card-front"></i>
+        <div class="text-truncate" data-i18n="Employee">Billing</div>
+      </a>
+
+      <ul class="menu-sub">
+        <li class="menu-item ">
+          <a href="" class="menu-link">
+            <div class="text-truncate" data-i18n="Employees">Generate Invoince</div>
+          </a>
+        </li>
+        <li class="menu-item ">
+          <a href="" class="menu-link">
+            <div class="text-truncate" data-i18n="Employees">Summary</div>
+          </a>
+        </li>
+        <li class="menu-item ">
+          <a href="" class="menu-link">
+            <div class="text-truncate" data-i18n="Timesheet">Invoice Items</div>
           </a>
         </li>
       </ul>

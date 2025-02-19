@@ -79,7 +79,7 @@
           <!-- Navbar -->
 
           <nav
-            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+            class="layout-navbar container-fluid navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
             id="layout-navbar">
             @include('layouts.navbar')
           </nav>
@@ -106,15 +106,18 @@
           <div class="content-wrapper">
             <!-- Content -->
 
-            <div class="container-xxl flex-grow-1 container-p-y">
-              @yield('content')
-              @livewireScripts
+            <div class="container-fluid flex-grow-1 container-p-y">
+              <div class="container">
+                    @yield('content')
+                    @livewireScripts
+              </div>
+              
             </div>
             <!-- / Content -->
 
             <!-- Footer -->
             <footer class="content-footer footer bg-footer-theme">
-              <div class="container-xxl">
+              <div class="container-fluid">
                 <div
                   class="py-4 footer-container d-flex align-items-center justify-content-between flex-md-row flex-column">
                   <div class="text-body">

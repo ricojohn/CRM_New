@@ -149,6 +149,22 @@
               </div>
               <div class="mb-2 row g-6">
                 <div class="col-lg-6">
+                  <label for="email" class="form-label">Email</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class='bx bxs-id-card'></i></span>
+                    <input type="email" class="form-control" placeholder="xxx@xxx.com" id="email">
+                  </div>
+                </div>
+                <div class="col-lg-6 form-password-toggle">
+                  <label for="password" class="form-label">Password</label>
+                  <div class="input-group input-group-merge">
+                    <input type="text" class="form-control" id="basic-default-password32" placeholder="············" aria-describedby="basic-default-password">
+                    <span class="cursor-pointer input-group-text" id="basic-default-password"><i class="bx bx-show"></i></span>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-2 row g-6">
+                <div class="col-lg-6">
                   <label for="first_name" class="form-label">Department</label>
                   <select
                     id="department"

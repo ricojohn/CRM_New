@@ -47,7 +47,7 @@
                                     <td><small>{{ $employee['name'] }}</small></td>
                                     <td><small>{{ $employee['position'] }}</small></td>
                                     {{-- @foreach ($employee['data'] as $hours) --}}
-                                    <td class="highlight"></td>
+                                        <td class="highlight"></td>
                                     {{-- @endforeach --}}
                                 </tr>
                             @endforeach
@@ -70,7 +70,7 @@
 //         dateFormat: "Y-m-d",
 //         static: true
 //     });
-// });
+// });     
 window.addEventListener('search_date', event => {
     setTimeout(() => {
         let searchInput = document.getElementById("search_date");
