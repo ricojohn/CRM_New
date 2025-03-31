@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 use App\Models\q8_employee;
 
 class Login extends Controller
@@ -52,7 +54,6 @@ class Login extends Controller
       {
           Auth::logout();
           session()->forget('user');
-    
           return redirect('/')->with('success', 'Logged out successfully.');
       }
 }
