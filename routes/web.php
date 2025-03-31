@@ -10,6 +10,7 @@ use App\Http\Controllers\Employee\employees;
 use App\Http\Controllers\Employee\timesheet;
 use App\Http\Controllers\Client\clientList;
 use App\Http\Controllers\Client\quotation;
+use App\Http\Controllers\Billing;
 
 // Route::get('/test', function () {
 //     return view('index');
@@ -20,6 +21,9 @@ use App\Http\Controllers\Client\quotation;
 Route::get('/', [Login::class, 'index']);
 Route::post('/', [Login::class, 'login'])->name('auth.login');
 Route::get('/logout', [Login::class, 'logout'])->name('auth.logout');
+Route::get('/keepalive', function () {
+    return response()->json(['status' => 'session refreshed']);
+})->name('keepalive');
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('timetracking')->group(function() {
@@ -46,10 +50,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/qoute', [quotation::class, 'index'])->name('client.qoute');
     });
 
-    // Route::prefix('billing')->group(function() {
-    //     Route::get('/clientlist', [clientList::class, 'index'])->name('billing.clientlist');
+    Route::prefix('billing')->group(function() {
+        Route::get('/generateinvoice', [Billing::class, 'generateInvoice'])->name('billing.generateinvoice');
     
-    //     Route::get('/qoute', [quotation::class, 'index'])->name('billing.qoute');
-    // });
+        Route::get('/summary', [Billing::class, 'summary'])->name('billing.summary');
+
+        Route::get('/invoiceitems', [Billing::class, 'invoiceItems'])->name('billing.invoiceitem');
+    });
 });
 

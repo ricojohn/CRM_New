@@ -125,33 +125,33 @@
         </li>
         <li class="menu-item {{ request()->is('client/qoute') ? 'active' : '' }}">
           <a href="{{route('client.qoute')}}" class="menu-link">
-            <div class="text-truncate" data-i18n="Client">Quotation Builder</div>
+            <div class="text-truncate" data-i18n="Employees">Quotation Builder</div>
           </a>
         </li>
       </ul>
     </li>
 
     <!-- Billing -->
-    <li class="menu-item ">
+    <li class="menu-item {{ request()->is('billing*') ? 'active open' : '' }}">
       <a href="" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-credit-card-front"></i>
-        <div class="text-truncate" data-i18n="Employee">Billing</div>
+        <div class="text-truncate" data-i18n="Billing">Billing</div>
       </a>
 
       <ul class="menu-sub">
-        <li class="menu-item ">
-          <a href="" class="menu-link">
-            <div class="text-truncate" data-i18n="Employees">Generate Invoince</div>
+        <li class="menu-item {{ request()->is('billing/generateinvoice') ? 'active' : '' }}">
+          <a href="{{route('billing.generateinvoice')}}" class="menu-link">
+            <div class="text-truncate" data-i18n="Billing">Generate Invoince</div>
           </a>
         </li>
-        <li class="menu-item ">
-          <a href="" class="menu-link">
-            <div class="text-truncate" data-i18n="Employees">Summary</div>
+        <li class="menu-item {{ request()->is('billing/summary') ? 'active' : '' }}">
+          <a href="{{route('billing.summary')}}" class="menu-link">
+            <div class="text-truncate" data-i18n="Billing">Summary</div>
           </a>
         </li>
-        <li class="menu-item ">
-          <a href="" class="menu-link">
-            <div class="text-truncate" data-i18n="Timesheet">Invoice Items</div>
+        <li class="menu-item {{ request()->is('billing/invoiceitems') ? 'active' : '' }}">
+          <a href="{{route('billing.invoiceitem')}}" class="menu-link">
+            <div class="text-truncate" data-i18n="Billing">Invoice Items</div>
           </a>
         </li>
       </ul>

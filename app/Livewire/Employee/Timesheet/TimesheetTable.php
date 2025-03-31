@@ -20,8 +20,8 @@ class TimesheetTable extends Component
 
     public function mount()
     {
-        // $this->search_date = now()->format('Y-m-d');
-        $this->search_date = '2024-12-09';
+        $this->search_date = now()->format('Y-m-d');
+        // $this->search_date = '2024-12-09';
         $this->loadTimesheet();
         $this->dispatch('search_date');
     }
