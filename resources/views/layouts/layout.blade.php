@@ -180,9 +180,8 @@
     <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true" data-bs-backdrop="static">
       <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
-              <form method="POST" action="{{ route('auth.logout') }}">
+              <form method="GET" action="{{ route('auth.logout') }}">
                   @csrf
-                  @method('DELETE')
                   <div class="modal-header">
                       <h1 class="modal-title fs-5" id="logoutModalLabel">Logout?</h1>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -192,7 +191,7 @@
                   </div>
                   <input type="hidden" name="logoutSessionPrompt" id="logoutSessionPrompt" value="">
                   <div class="modal-footer">
-                      <button type="button" data-bs-dismiss="modal" class="btn btn-outline-dark" id="stayLoggedInButton2">Back</button>
+                      <button type="button" data-bs-dismiss="modal" class="mx-2 btn btn-outline-dark" id="stayLoggedInButton2">Back</button>
                       <button type="submit" class="btn btn-danger" id="timeoutsbmt">Yes</button>
                   </div>
               </form>
@@ -204,9 +203,8 @@
    <div class="modal fade" id="sessionTimeoutModal" tabindex="-1" aria-labelledby="sessionTimeoutLabel" aria-hidden="true" data-bs-backdrop="static">
       <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
-              <form method="POST" action="{{ route('auth.logout') }}">
+              <form action="{{ route('auth.logout') }}">
                   @csrf
-                  @method('DELETE')
                   <div class="modal-header">
                       <h5 class="modal-title" id="sessionTimeoutLabel">Session Timeout</h5>
                   </div>

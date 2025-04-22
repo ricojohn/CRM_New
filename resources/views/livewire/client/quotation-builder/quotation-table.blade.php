@@ -110,7 +110,7 @@
                 <div class="col-lg-6">
                   <label for="phone" class="form-label">Due Date
                   </label>
-                  <input type="text" id="datepicker" class="form-control" >
+                  <input type="text" id="due-date" class="form-control" >
                 </div>
               </div>
               <div class="mb-2 row g-6">
@@ -172,7 +172,7 @@ window.addEventListener('openQuoteModal', event => {
     setTimeout(() => {
         if (typeof flatpickr !== "undefined") { // Check if Flatpickr is loaded
             console.log("Initializing Flatpickr...");
-            flatpickr("#datepicker", {
+            flatpickr("#due-date", {
                 dateFormat: "m-d-Y",
                 static: true
             });
