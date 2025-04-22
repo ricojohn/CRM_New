@@ -11,6 +11,7 @@ use App\Http\Controllers\Employee\timesheet;
 use App\Http\Controllers\Client\clientList;
 use App\Http\Controllers\Client\quotation;
 use App\Http\Controllers\Billing;
+use App\Http\Controllers\Roles\roles;
 
 // Route::get('/test', function () {
 //     return view('index');
@@ -42,6 +43,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/employees', [employees::class, 'index'])->name('employee.employees');
     
         Route::get('/timesheet', [timesheet::class, 'index'])->name('employee.timesheet');
+    });
+
+    Route::prefix('roles')->group(function() {
+        Route::get('/roles', [roles::class, 'index'])->name('roles.roles');
     });
 
     Route::prefix('client')->group(function() {

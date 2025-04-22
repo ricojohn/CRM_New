@@ -110,6 +110,13 @@
       </ul>
     </li>
 
+    <li class="menu-item {{ request()->is('roles*') ? 'active open' : '' }}" >
+      <a href="{{route('roles.roles')}}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-collection"></i>
+        <div class="text-truncate" data-i18n="Basic">Role and Permission</div>
+      </a>
+    </li>
+
     <!-- Client/Projects -->
     <li class="menu-item {{ request()->is('client*') ? 'active open' : '' }}">
       <a href="" class="menu-link menu-toggle">

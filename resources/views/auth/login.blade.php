@@ -127,7 +127,9 @@
                     id="email"
                     name="email"
                     placeholder="Enter your email"
-                    autofocus />
+                    autofocus 
+                    value="{{ old('email') }}"
+                    />
                 </div>
                 @if ($errors->has('email'))
                 @foreach ($errors->all() as $error) 
@@ -143,7 +145,9 @@
                       class="form-control"
                       name="password"
                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                      aria-describedby="password" />
+                      aria-describedby="password"
+                      value="{{ old('password') }}"
+                    />
                     <span class="cursor-pointer input-group-text"><i class="bx bx-hide"></i></span>
                   </div>
                 </div>

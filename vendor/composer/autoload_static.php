@@ -44,6 +44,7 @@ class ComposerStaticInit626b9e7ddd47fb7eff9aaa53cce0c9ad
         'c72349b1fe8d0deeedd3a52e8aa814d8' => __DIR__ . '/..' . '/mockery/mockery/library/helpers.php',
         'ce9671a430e4846b44e1c68c7611f9f5' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'd634523d799d97a8ab4807b650bf5cea' => __DIR__ . '/..' . '/pestphp/pest-plugin-laravel/src/Autoload.php',
+        '377b22b161c09ed6e5152de788ca020a' => __DIR__ . '/..' . '/spatie/laravel-permission/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -96,6 +97,7 @@ class ComposerStaticInit626b9e7ddd47fb7eff9aaa53cce0c9ad
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\Clock\\' => 24,
+            'Spatie\\Permission\\' => 18,
         ),
         'R' => 
         array (
@@ -343,6 +345,10 @@ class ComposerStaticInit626b9e7ddd47fb7eff9aaa53cce0c9ad
         'Symfony\\Component\\Clock\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/clock',
+        ),
+        'Spatie\\Permission\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/laravel-permission/src',
         ),
         'Ramsey\\Uuid\\' => 
         array (
@@ -595,9 +601,28 @@ class ComposerStaticInit626b9e7ddd47fb7eff9aaa53cce0c9ad
 
     public static $classMap = array (
         'App\\Http\\Controllers\\Auth\\Login' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/Login.php',
+        'App\\Http\\Controllers\\Billing' => __DIR__ . '/../..' . '/app/Http/Controllers/Billing.php',
+        'App\\Http\\Controllers\\Client\\clientList' => __DIR__ . '/../..' . '/app/Http/Controllers/Client/clientList.php',
+        'App\\Http\\Controllers\\Client\\quotation' => __DIR__ . '/../..' . '/app/Http/Controllers/Client/quotation.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\Employee\\employees' => __DIR__ . '/../..' . '/app/Http/Controllers/Employee/employees.php',
+        'App\\Http\\Controllers\\Employee\\timesheet' => __DIR__ . '/../..' . '/app/Http/Controllers/Employee/timesheet.php',
+        'App\\Http\\Controllers\\Recording\\recordings' => __DIR__ . '/../..' . '/app/Http/Controllers/Recording/recordings.php',
         'App\\Http\\Controllers\\Timetracking\\amendments' => __DIR__ . '/../..' . '/app/Http/Controllers/Timetracking/amendments.php',
         'App\\Http\\Controllers\\Timetracking\\checkin_out' => __DIR__ . '/../..' . '/app/Http/Controllers/Timetracking/checkin_out.php',
+        'App\\Livewire\\Amendment\\AmendmentForm' => __DIR__ . '/../..' . '/app/Livewire/Amendment/AmendmentForm.php',
+        'App\\Livewire\\Billing\\GenerateInvoice' => __DIR__ . '/../..' . '/app/Livewire/Billing/GenerateInvoice.php',
+        'App\\Livewire\\Billing\\InvoiceItems' => __DIR__ . '/../..' . '/app/Livewire/Billing/InvoiceItems.php',
+        'App\\Livewire\\Billing\\Summary' => __DIR__ . '/../..' . '/app/Livewire/Billing/Summary.php',
+        'App\\Livewire\\CheckIn\\CheckInOutTable' => __DIR__ . '/../..' . '/app/Livewire/CheckIn/CheckInOutTable.php',
+        'App\\Livewire\\CheckIn\\RecordingTable' => __DIR__ . '/../..' . '/app/Livewire/CheckIn/RecordingTable.php',
+        'App\\Livewire\\CheckIn\\TimeTracking' => __DIR__ . '/../..' . '/app/Livewire/CheckIn/TimeTracking.php',
+        'App\\Livewire\\Client\\ClientList\\ClientTable' => __DIR__ . '/../..' . '/app/Livewire/Client/ClientList/ClientTable.php',
+        'App\\Livewire\\Client\\ClientList\\SalesRep' => __DIR__ . '/../..' . '/app/Livewire/Client/ClientList/SalesRep.php',
+        'App\\Livewire\\Client\\QuotationBuilder\\QuotationTable' => __DIR__ . '/../..' . '/app/Livewire/Client/QuotationBuilder/QuotationTable.php',
+        'App\\Livewire\\Employee\\Employees\\DepartmentTable' => __DIR__ . '/../..' . '/app/Livewire/Employee/Employees/DepartmentTable.php',
+        'App\\Livewire\\Employee\\Employees\\EmployeeTable' => __DIR__ . '/../..' . '/app/Livewire/Employee/Employees/EmployeeTable.php',
+        'App\\Livewire\\Employee\\Timesheet\\TimesheetTable' => __DIR__ . '/../..' . '/app/Livewire/Employee/Timesheet/TimesheetTable.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\q8_checkinout' => __DIR__ . '/../..' . '/app/Models/q8_checkinout.php',
         'App\\Models\\q8_employee' => __DIR__ . '/../..' . '/app/Models/q8_employee.php',
@@ -6470,6 +6495,35 @@ class ComposerStaticInit626b9e7ddd47fb7eff9aaa53cce0c9ad
         'SebastianBergmann\\Type\\UnknownType' => __DIR__ . '/..' . '/sebastian/type/src/type/UnknownType.php',
         'SebastianBergmann\\Type\\VoidType' => __DIR__ . '/..' . '/sebastian/type/src/type/VoidType.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'Spatie\\Permission\\Commands\\CacheReset' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Commands/CacheReset.php',
+        'Spatie\\Permission\\Commands\\CreatePermission' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Commands/CreatePermission.php',
+        'Spatie\\Permission\\Commands\\CreateRole' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Commands/CreateRole.php',
+        'Spatie\\Permission\\Commands\\Show' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Commands/Show.php',
+        'Spatie\\Permission\\Commands\\UpgradeForTeams' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Commands/UpgradeForTeams.php',
+        'Spatie\\Permission\\Contracts\\Permission' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Contracts/Permission.php',
+        'Spatie\\Permission\\Contracts\\Role' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Contracts/Role.php',
+        'Spatie\\Permission\\Contracts\\Wildcard' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Contracts/Wildcard.php',
+        'Spatie\\Permission\\Exceptions\\GuardDoesNotMatch' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Exceptions/GuardDoesNotMatch.php',
+        'Spatie\\Permission\\Exceptions\\PermissionAlreadyExists' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Exceptions/PermissionAlreadyExists.php',
+        'Spatie\\Permission\\Exceptions\\PermissionDoesNotExist' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Exceptions/PermissionDoesNotExist.php',
+        'Spatie\\Permission\\Exceptions\\RoleAlreadyExists' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Exceptions/RoleAlreadyExists.php',
+        'Spatie\\Permission\\Exceptions\\RoleDoesNotExist' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Exceptions/RoleDoesNotExist.php',
+        'Spatie\\Permission\\Exceptions\\UnauthorizedException' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Exceptions/UnauthorizedException.php',
+        'Spatie\\Permission\\Exceptions\\WildcardPermissionInvalidArgument' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Exceptions/WildcardPermissionInvalidArgument.php',
+        'Spatie\\Permission\\Exceptions\\WildcardPermissionNotImplementsContract' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Exceptions/WildcardPermissionNotImplementsContract.php',
+        'Spatie\\Permission\\Exceptions\\WildcardPermissionNotProperlyFormatted' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Exceptions/WildcardPermissionNotProperlyFormatted.php',
+        'Spatie\\Permission\\Guard' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Guard.php',
+        'Spatie\\Permission\\Middleware\\PermissionMiddleware' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Middleware/PermissionMiddleware.php',
+        'Spatie\\Permission\\Middleware\\RoleMiddleware' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Middleware/RoleMiddleware.php',
+        'Spatie\\Permission\\Middleware\\RoleOrPermissionMiddleware' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Middleware/RoleOrPermissionMiddleware.php',
+        'Spatie\\Permission\\Models\\Permission' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Models/Permission.php',
+        'Spatie\\Permission\\Models\\Role' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Models/Role.php',
+        'Spatie\\Permission\\PermissionRegistrar' => __DIR__ . '/..' . '/spatie/laravel-permission/src/PermissionRegistrar.php',
+        'Spatie\\Permission\\PermissionServiceProvider' => __DIR__ . '/..' . '/spatie/laravel-permission/src/PermissionServiceProvider.php',
+        'Spatie\\Permission\\Traits\\HasPermissions' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Traits/HasPermissions.php',
+        'Spatie\\Permission\\Traits\\HasRoles' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Traits/HasRoles.php',
+        'Spatie\\Permission\\Traits\\RefreshesPermissionCache' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Traits/RefreshesPermissionCache.php',
+        'Spatie\\Permission\\WildcardPermission' => __DIR__ . '/..' . '/spatie/laravel-permission/src/WildcardPermission.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Symfony\\Component\\Clock\\Clock' => __DIR__ . '/..' . '/symfony/clock/Clock.php',
         'Symfony\\Component\\Clock\\ClockAwareTrait' => __DIR__ . '/..' . '/symfony/clock/ClockAwareTrait.php',
