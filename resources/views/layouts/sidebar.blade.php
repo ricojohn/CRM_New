@@ -90,79 +90,89 @@
     </li>
 
     <!-- Employee -->
-    <li class="menu-item {{ request()->is('employee*') ? 'active open' : '' }}">
-      <a href="" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons bx bx-group"></i>
-        <div class="text-truncate" data-i18n="Employee">Employee</div>
-      </a>
+    {{-- @can('employee') --}}
+      <li class="menu-item {{ request()->is('employee*') ? 'active open' : '' }}">
+        <a href="" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-group"></i>
+          <div class="text-truncate" data-i18n="Employee">Employee</div>
+        </a>
 
-      <ul class="menu-sub">
-        <li class="menu-item {{ request()->is('employee/employees') ? 'active' : '' }}">
-          <a href="{{route('employee.employees')}}" class="menu-link">
-            <div class="text-truncate" data-i18n="Employees">Employees</div>
-          </a>
-        </li>
-        <li class="menu-item {{ request()->is('employee/timesheet') ? 'active' : '' }}">
-          <a href="{{route('employee.timesheet')}}" class="menu-link">
-            <div class="text-truncate" data-i18n="Timesheet">Timesheet</div>
-          </a>
-        </li>
-      </ul>
-    </li>
-
+        <ul class="menu-sub">
+          <li class="menu-item {{ request()->is('employee/employees') ? 'active' : '' }}">
+            <a href="{{route('employee.employees')}}" class="menu-link">
+              <div class="text-truncate" data-i18n="Employees">Employees</div>
+            </a>
+          </li>
+          <li class="menu-item {{ request()->is('employee/timesheet') ? 'active' : '' }}">
+            <a href="{{route('employee.timesheet')}}" class="menu-link">
+              <div class="text-truncate" data-i18n="Timesheet">Timesheet</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+    {{-- @endcan --}}
+      
+    {{-- @role('Admin') --}}
     <li class="menu-item {{ request()->is('roles*') ? 'active open' : '' }}" >
       <a href="{{route('roles.roles')}}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-collection"></i>
         <div class="text-truncate" data-i18n="Basic">Role and Permission</div>
       </a>
     </li>
+    {{-- @endrole --}}
 
     <!-- Client/Projects -->
-    <li class="menu-item {{ request()->is('client*') ? 'active open' : '' }}">
-      <a href="" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons bx bx-file"></i>
-        <div class="text-truncate" data-i18n="Client">Client/Projects</div>
-      </a>
+    @can('client-project')
+      <li class="menu-item {{ request()->is('client*') ? 'active open' : '' }}">
+        <a href="" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-file"></i>
+          <div class="text-truncate" data-i18n="Client">Client/Projects</div>
+        </a>
 
-      <ul class="menu-sub">
-        <li class="menu-item {{ request()->is('client/clientlist') ? 'active' : '' }}">
-          <a href="{{route('client.clientlist')}}" class="menu-link">
-            <div class="text-truncate" data-i18n="Client">Client List</div>
-          </a>
-        </li>
-        <li class="menu-item {{ request()->is('client/qoute') ? 'active' : '' }}">
-          <a href="{{route('client.qoute')}}" class="menu-link">
-            <div class="text-truncate" data-i18n="Employees">Quotation Builder</div>
-          </a>
-        </li>
-      </ul>
-    </li>
+        <ul class="menu-sub">
+          <li class="menu-item {{ request()->is('client/clientlist') ? 'active' : '' }}">
+            <a href="{{route('client.clientlist')}}" class="menu-link">
+              <div class="text-truncate" data-i18n="Client">Client List</div>
+            </a>
+          </li>
+          <li class="menu-item {{ request()->is('client/quote') ? 'active' : '' }}">
+            <a href="{{route('client.quote')}}" class="menu-link">
+              <div class="text-truncate" data-i18n="Employees">Quotation Builder</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+    @endcan
+    
 
     <!-- Billing -->
-    <li class="menu-item {{ request()->is('billing*') ? 'active open' : '' }}">
-      <a href="" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons bx bx-credit-card-front"></i>
-        <div class="text-truncate" data-i18n="Billing">Billing</div>
-      </a>
+    @can('billing')
+      <li class="menu-item {{ request()->is('billing*') ? 'active open' : '' }}">
+        <a href="" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-credit-card-front"></i>
+          <div class="text-truncate" data-i18n="Billing">Billing</div>
+        </a>
 
-      <ul class="menu-sub">
-        <li class="menu-item {{ request()->is('billing/generateinvoice') ? 'active' : '' }}">
-          <a href="{{route('billing.generateinvoice')}}" class="menu-link">
-            <div class="text-truncate" data-i18n="Billing">Generate Invoince</div>
-          </a>
-        </li>
-        <li class="menu-item {{ request()->is('billing/summary') ? 'active' : '' }}">
-          <a href="{{route('billing.summary')}}" class="menu-link">
-            <div class="text-truncate" data-i18n="Billing">Summary</div>
-          </a>
-        </li>
-        <li class="menu-item {{ request()->is('billing/invoiceitems') ? 'active' : '' }}">
-          <a href="{{route('billing.invoiceitem')}}" class="menu-link">
-            <div class="text-truncate" data-i18n="Billing">Invoice Items</div>
-          </a>
-        </li>
-      </ul>
-    </li>
+        <ul class="menu-sub">
+          <li class="menu-item {{ request()->is('billing/generateinvoice') ? 'active' : '' }}">
+            <a href="{{route('billing.generateinvoice')}}" class="menu-link">
+              <div class="text-truncate" data-i18n="Billing">Generate Invoince</div>
+            </a>
+          </li>
+          <li class="menu-item {{ request()->is('billing/summary') ? 'active' : '' }}">
+            <a href="{{route('billing.summary')}}" class="menu-link">
+              <div class="text-truncate" data-i18n="Billing">Summary</div>
+            </a>
+          </li>
+          <li class="menu-item {{ request()->is('billing/invoiceitems') ? 'active' : '' }}">
+            <a href="{{route('billing.invoiceitem')}}" class="menu-link">
+              <div class="text-truncate" data-i18n="Billing">Invoice Items</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+    @endcan
+    
 
     <!-- Front Pages -->
     <li class="menu-item">

@@ -212,8 +212,8 @@
                       You've been gone for a while. For security, we will log you out in <b>90s</b>. Please click "Stay logged in" to keep working or click "Log out" to end your session now.
                   </div>
                   <div class="modal-footer">
-                      <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#logoutModal">Logout</button>
-                      <button type="button" class="btn btn-primary" id="stayLoggedInButton">Stay Logged In (<span id="countdownTimer"></span>s)</button>
+                      <button type="button" class="me-3 btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#logoutModal">Logout</button>
+                      <button type="button" class="btn btn-danger" id="stayLoggedInButton">Stay Logged In (<span id="countdownTimer"></span>s)</button>
                   </div>
               </form>
           </div>

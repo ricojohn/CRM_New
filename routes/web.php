@@ -45,17 +45,17 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/timesheet', [timesheet::class, 'index'])->name('employee.timesheet');
     });
 
-    Route::prefix('roles')->group(function() {
+    Route::prefix('roles')->middleware(['role:Admin'])->group(function() {
         Route::get('/roles', [roles::class, 'index'])->name('roles.roles');
     });
 
-    Route::prefix('client')->group(function() {
+    Route::prefix('client')->middleware(['permission:client-project'])->group(function() {
         Route::get('/clientlist', [clientList::class, 'index'])->name('client.clientlist');
     
-        Route::get('/qoute', [quotation::class, 'index'])->name('client.qoute');
+        Route::get('/quote', [quotation::class, 'index'])->name('client.quote');
     });
 
-    Route::prefix('billing')->group(function() {
+    Route::prefix('billing')->middleware(['permission:billing'])->group(function() {
         Route::get('/generateinvoice', [Billing::class, 'generateInvoice'])->name('billing.generateinvoice');
     
         Route::get('/summary', [Billing::class, 'summary'])->name('billing.summary');
