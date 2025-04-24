@@ -9,6 +9,8 @@ use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use App\Models\q8_employee;
 use Livewire\Attributes\Validate;
+use Spatie\Permission\Models\Role;
+use Carbon\Carbon;
 
 
 
@@ -26,6 +28,8 @@ class EmployeeTable extends Component
     #[Validate]
     public $photo;
 
+    public $id;
+
     public $employee_id, $first_name, $last_name, $email, $password, $department, $position,
            $phone, $address,$employment_date, $access, $status,$salary; 
 
@@ -35,16 +39,16 @@ class EmployeeTable extends Component
             'first_name' => 'required',
             'last_name' => 'required',
             'password' => 'required',
-            'email' => 'required|email|unique:q8_employee,email',
+            'email' => 'required|email|unique:q8_employee,email,' . $this->id,
             'department' => 'required',
             'position' => 'required',
-            'phone' => 'required|max:11',
+            'phone' => 'required',
             'address' => 'required',
             'dob' => 'required', // Optional: custom format validation
             'employment_date' => 'required',
             'access' => 'required',
             'status' => 'required',
-            'photo' => 'required|image',
+            'photo' => $this->id ? 'nullable|image' : 'required|image',
             'salary' => 'required|numeric', 
         ];
     }
@@ -52,11 +56,6 @@ class EmployeeTable extends Component
     public function updatingSearch()
     {
         $this->resetPage();
-    }
-
-    public function mount(){
-        $this->employee_id = 'Q8-' . date('mdyhis') . rand(1, 10);
-        $this->status = 'Active';
     }
 
     public function render()
@@ -71,17 +70,46 @@ class EmployeeTable extends Component
         ->orderBy('department', 'ASC')
         ->get();
 
+        $roles = Role::all();
+
 
         return view('livewire.employee.employees.employee-table',[
             'employees' => $employees,
             'departments' => $departments,
+            'roles' => $roles,
         ]);
     }
 
-    public function openEmployeeModal(){
+    public function createEmployeeModal(){
         $this->reset();
         $this->resetValidation();
-        $this->mount();
+        $this->employee_id = 'Q8-' . date('mdyhis') . rand(1, 10);
+        $this->status = 'Active';
+        // $this->mount();
+        // Trigger modal open
+        $this->dispatch('openEmployeeModal');
+    }
+
+    public function editEmployeeModal($id){
+        $this->reset();
+        $this->resetValidation();
+        $user = q8_employee::find($id);
+        $this->id = $user->id;
+        $this->employee_id = $user->employee_id;
+        $this->first_name = $user->first_name;
+        $this->last_name = $user->last_name;
+        $this->department = $user->department;
+        $this->position = $user->position;
+        $this->phone = $user->phone;
+        $this->address = $user->address;
+        $this->dob = $user->dob;
+        $this->employment_date = $user->employment_date;
+        $this->email = $user->email;
+        $this->password = $user->password;
+        $this->photo = $user->photo;
+        $this->salary = $user->salary;
+        $this->access = $user->access_level;
+        $this->status = $user->status;
         // Trigger modal open
         $this->dispatch('openEmployeeModal');
     }
@@ -93,30 +121,60 @@ class EmployeeTable extends Component
 
         // Insert Employee
         try {
+
             $filename = null;
-            $filename = 'uploads/' . now()->format('ymdhis') . rand(1, 100) . '.' . $this->photo->getClientOriginalExtension();
+
+            if (is_object($this->photo)) {
+                $filename = now()->format('ymdhis') . rand(1, 100) . '.' . $this->photo->getClientOriginalExtension();
+                $this->photo->storeAs('uploads/employeeimg', $filename, 'public');
+            } else {
+                $filename = $this->photo; // keep existing filename
+            }
+
+            if($this->id){
+                $user = q8_employee::find($this->id);
+                $user->update([
+                    'first_name' => $this->first_name,
+                    'last_name' => $this->last_name,
+                    'department' => $this->department,
+                    'position' => $this->position,
+                    'phone' => $this->phone,
+                    'address' => $this->address,
+                    'dob' => $this->dob,
+                    'employment_date' => $this->employment_date,
+                    'email' => $this->email,
+                    'photo' => $filename,
+                    'salary' => $this->salary,
+                    'access_level' => $this->access,
+                ]);
+            }else{
+                $user = q8_employee::Create([
+                    'employee_id' => $this->employee_id,
+                    'first_name' => $this->first_name,
+                    'last_name' => $this->last_name,
+                    'department' => $this->department,
+                    'position' => $this->position,
+                    'phone' => $this->phone,
+                    'address' => $this->address,
+                    'dob' => $this->dob,
+                    'employment_date' => $this->employment_date,
+                    'email' => $this->email,
+                    'password' => Hash::make($this->password),
+                    'photo' => $filename,
+                    'salary' => $this->salary,
+                    'access_level' => $this->access,
+                    'status' => $this->status,
+                ]);
+            }
+            
             
 
-            q8_employee::create([
-                'employee_id' => $this->employee_id,
-                'first_name' => $this->first_name,
-                'last_name' => $this->last_name,
-                'department' => $this->department,
-                'position' => $this->position,
-                'phone' => $this->phone,
-                'address' => $this->address,
-                'dob' => $this->dob,
-                'employment_date' => $this->employment_date,
-                'email' => $this->email,
-                'password' => Hash::make($this->password),
-                'photo' => $filename,
-                'salary' => $this->salary,
-                'access_level' => $this->access,
-                'status' => $this->status,
-            ]);
-            $this->photo->storeAs('public', $filename);
+            $user->syncRoles($this->access);
+
+
+            $this->photo->storeAs('uploads/employeeimg',$filename, 'public');
             // Message
-            $this->dispatch('query', ['status' => 'bg-success', 'message' => 'Employee Added']);
+            $this->dispatch('query', ['status' => 'bg-success', 'message' => $this->id ? 'Employee Updated' : 'Employee Added' ]);
             // Trigger modal close
             $this->dispatch('closeEmployeeModal');
         } catch (\Throwable $th) {

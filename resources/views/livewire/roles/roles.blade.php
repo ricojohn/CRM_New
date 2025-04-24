@@ -20,7 +20,7 @@
                 placeholder="Search items..."
                 wire:model.live="search"
             />
-        </div>
+        </div> 
     </div>
     <div class="table-responsive text-nowrap">
         <!-- Search Bar -->

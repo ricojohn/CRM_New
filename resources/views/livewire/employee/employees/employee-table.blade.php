@@ -2,7 +2,7 @@
     <h5 class="card-header">Employees table</h5>
     <div class="justify-between mx-3 mb-3 row align-items-center">
         <div class="mb-2 col-md-6 col-12 mb-lg-0">
-            <button type="button" class="btn btn-primary" wire:click="openEmployeeModal()">
+            <button type="button" class="btn btn-primary" wire:click="createEmployeeModal()">
                 <span class="tf-icons bx bxs-user-plus bx-18px me-2"></span>
                 Add Employee
             </button>
@@ -48,8 +48,8 @@
                           <i class="bx bx-dots-vertical-rounded"></i>
                         </button>
                         <div class="dropdown-menu" style="">
-                          <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i>Edit</a>
-                          <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
+                          <a class="dropdown-item" href="javascript:void(0);" wire:click="editEmployeeModal({{ $employee->id }})"><i class="bx bx-edit-alt me-1"></i>Edit</a>
+                          <a class="dropdown-item" href="javascript:void(0);" wire:click="editEmployeeModal({{ $employee->id }})"><i class="bx bx-trash me-1"></i> Delete</a>
                         </div>
                     </div>
                 </td>
@@ -109,12 +109,25 @@
         <div class="modal-dialog modal-lg">
           <form class="modal-content" autocomplete="off" enctype="multipart/form-data" wire:submit="addEmployee">
             <div class="modal-header">
-              <h5 class="modal-title" id="employeeModalModalTitle" >Add New Employee</h5>
+              <h5 class="modal-title" id="employeeModalModalTitle" >{{ $id ? 'Edit Employee' : 'Create Employee' }}</h5>
               <button
                 type="button"
                 class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              @if($id)
+                @if ($photo && !$errors->has('photo'))
+                <img src="{{ $photo instanceof \Illuminate\Http\UploadedFile ? $photo->temporaryUrl() : asset('storage/uploads/employeeimg/' . $photo) }}" class="w-20 mt-4 rounded-pill img-thumbnail img-fluid">
+                  {{-- <img src="{{  asset('storage/uploads/employeeimg/' . $photo)  }}" class="w-20 mt-4 rounded-pill img-thumbnail img-fluid"> --}}
+                @endif
+              @else
+                @if ($photo && !$errors->has('photo'))
+                  <img src="{{ $photo->temporaryUrl() }}" class="w-20 mt-4 rounded-pill img-thumbnail img-fluid">
+                @endif
+              @endif
+              
             </div>
             <div class="modal-body">
               <div class="row">
@@ -184,13 +197,15 @@
                   <label for="password" class="form-label">Password</label>
                   <div class="input-group input-group-merge">
                     <input 
-                      type="text" 
+                      type="{{ $id ? 'password' : 'text' }}" 
                       class="form-control" 
                       id="password" 
                       wire:model="password"
                       placeholder="············" 
-                      aria-describedby="basic-default-password">
-                    <span class="cursor-pointer input-group-text" id="password"><i class="bx bx-show"></i></span>
+                      aria-describedby="basic-default-password"
+                      {{ $id ? 'readonly' : '' }}
+                    >
+                    <span class="cursor-pointer input-group-text" id="password"><i class="{{ $id ? '' : 'bx bx-show' }}"></i></span>
                   </div>
                   @error('password')
                     <div class="error">
@@ -316,8 +331,9 @@
                     wire:model="access"
                     class="form-control">
                     <option>--</option>
-                    <option value="user">User</option>
-                    <option value="admin">Admin</option>
+                    @foreach ($roles as $role)
+                    <option value="{{ $role->name }}">{{ $role->name }}</option>
+                    @endforeach
                   </select>
                   @error('access')
                     <div class="error">
@@ -353,9 +369,7 @@
                       wire:model.blur="photo"
                     />
                   </div>
-                  @if ($photo && !$errors->has('photo'))
-                      <img src="{{ $photo->temporaryUrl() }}" class="mt-4 rounded-pill img-thumbnail">
-                  @endif
+                  
                   @error('photo')
                     <div class="error">
                       {{ $message }} 
@@ -415,7 +429,7 @@
             if (typeof flatpickr !== "undefined") { // Check if Flatpickr is loaded
                 console.log("Initializing Flatpickr...");
                 flatpickr("#dob, #employment_date", {
-                    dateFormat: "m-d-Y",
+                    dateFormat: "Y-m-d",
                     static: true
                 });
             } else {

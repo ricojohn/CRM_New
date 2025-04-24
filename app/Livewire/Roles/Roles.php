@@ -44,6 +44,7 @@ class Roles extends Component
     }
 
     public function editRoleModal($id){
+        $this->reset();
         $this->resetValidation();
         $role = Role::with('permissions')->findOrFail($id);
         $this->role = $role->name;
