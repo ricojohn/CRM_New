@@ -153,7 +153,7 @@
                     placeholder="First Name" 
                   />
                   @error('first_name')
-                    <div class="error">
+                    <div class="error text-danger small">
                       {{ $message }} 
                     </div>
                   @enderror
@@ -168,7 +168,7 @@
                     placeholder="Last Name" 
                   />
                   @error('last_name')
-                    <div class="error">
+                    <div class="error text-danger small">
                       {{ $message }} 
                     </div>
                   @enderror
@@ -188,7 +188,7 @@
                     />
                   </div>
                   @error('email')
-                    <div class="error">
+                    <div class="error text-danger small">
                       {{ $message }} 
                     </div>
                   @enderror
@@ -208,7 +208,7 @@
                     <span class="cursor-pointer input-group-text" id="password"><i class="{{ $id ? '' : 'bx bx-show' }}"></i></span>
                   </div>
                   @error('password')
-                    <div class="error">
+                    <div class="error text-danger small">
                       {{ $message }} 
                     </div>
                   @enderror
@@ -227,7 +227,7 @@
                     @endforeach
                   </select>
                   @error('department')
-                    <div class="error">
+                    <div class="error text-danger small">
                       {{ $message }} 
                     </div>
                   @enderror
@@ -242,7 +242,7 @@
                     placeholder="Position" 
                   />
                   @error('position')
-                    <div class="error">
+                    <div class="error text-danger small">
                       {{ $message }} 
                     </div>
                   @enderror
@@ -262,7 +262,7 @@
                     />
                   </div>
                   @error('phone')
-                    <div class="error">
+                    <div class="error text-danger small">
                       {{ $message }} 
                     </div>
                   @enderror
@@ -280,7 +280,7 @@
                     />
                   </div>
                   @error('address')
-                    <div class="error">
+                    <div class="error text-danger small">
                       {{ $message }} 
                     </div>
                   @enderror
@@ -299,7 +299,7 @@
                     />
                   </div>
                   @error('dob')
-                    <div class="error">
+                    <div class="error text-danger small">
                       {{ $message }} 
                     </div>
                   @enderror
@@ -317,7 +317,7 @@
                     />
                   </div>
                   @error('employment_date')
-                    <div class="error">
+                    <div class="error text-danger small">
                       {{ $message }} 
                     </div>
                   @enderror
@@ -336,7 +336,7 @@
                     @endforeach
                   </select>
                   @error('access')
-                    <div class="error">
+                    <div class="error text-danger small">
                       {{ $message }} 
                     </div>
                   @enderror
@@ -351,7 +351,7 @@
                     readonly
                   />
                   @error('status')
-                    <div class="error">
+                    <div class="error text-danger small">
                       {{ $message }} 
                     </div>
                   @enderror
@@ -371,7 +371,7 @@
                   </div>
                   
                   @error('photo')
-                    <div class="error">
+                    <div class="error text-danger small">
                       {{ $message }} 
                     </div>
                   @enderror
@@ -391,7 +391,7 @@
                     <span class="input-group-text">.00</span>
                   </div>
                   @error('salary')
-                    <div class="error">
+                    <div class="error text-danger small">
                       {{ $message }} 
                     </div>
                   @enderror
@@ -462,6 +462,9 @@
 
         selectedType = status;  // Choose the success type class you want
         selectedPlacement = ['top-0', 'start-50', 'translate-middle-x'];  // You can modify placement as needed
+
+        // Remove previous bg-* status classes
+        toastPlacementExample.classList.remove('bg-success', 'bg-danger');
 
         toastbody.textContent = message;
         toastPlacementExample.classList.add(selectedType);
