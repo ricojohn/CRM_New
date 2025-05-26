@@ -39,7 +39,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.16.2/ckeditor.js" integrity="sha512-bGYUkjDyyOMGm3ASzq3zRaWZ4CONNH1wAYMFch/Z0ASZrsg722SeRsX0FPPRZjTuJrqIMbB9fvY0LEMzyHeyeQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.45/moment-timezone-with-data.min.js" integrity="sha512-t/mY3un180WRfsSkWy4Yi0tAxEDGcY2rAEx873hb5BrkvLA0QLk54+SjfYgFBBoCdJDV1H86M8uyZdJhAOHeyA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+    
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
@@ -221,121 +221,121 @@
   </div>
   </body>
   <script>
-    $(document).ready(function () {
-        const warningTime = 510; // 510 Seconds
-        const autoLogoutTime = 90; // 90 Seconds
+    // $(document).ready(function () {
+    //     const warningTime = 510; // 510 Seconds
+    //     const autoLogoutTime = 90; // 90 Seconds
         
-        let timeoutWarning;
-        let countdown;
-        let autoLogoutTimeout;
-        let warningCountdown;
+    //     let timeoutWarning;
+    //     let countdown;
+    //     let autoLogoutTimeout;
+    //     let warningCountdown;
 
-        // Initialize warningTime countdown display
+    //     // Initialize warningTime countdown display
 
-        $('#warningTimer').text(`You will be warned in ${Math.floor(warningTime / 60)} minute(s) and ${warningTime % 60} second(s).`);
+    //     $('#warningTimer').text(`You will be warned in ${Math.floor(warningTime / 60)} minute(s) and ${warningTime % 60} second(s).`);
 
-        function startWarningCountdown() {
-            let warningTimeLeft = warningTime;
+    //     function startWarningCountdown() {
+    //         let warningTimeLeft = warningTime;
 
-            // Clear previous warning countdown, if any
-            clearInterval(warningCountdown);
+    //         // Clear previous warning countdown, if any
+    //         clearInterval(warningCountdown);
 
-            // Start the warning countdown
-            warningCountdown = setInterval(function () {
-                warningTimeLeft--;
+    //         // Start the warning countdown
+    //         warningCountdown = setInterval(function () {
+    //             warningTimeLeft--;
 
-                if (warningTimeLeft >= 0) {
-                    // Calculate minutes and seconds
-                    const minutes = Math.floor(warningTimeLeft / 60);
-                    const seconds = warningTimeLeft % 60;
+    //             if (warningTimeLeft >= 0) {
+    //                 // Calculate minutes and seconds
+    //                 const minutes = Math.floor(warningTimeLeft / 60);
+    //                 const seconds = warningTimeLeft % 60;
 
-                    // Update the warning timer display with minutes and seconds
-                    $('#warningTimer').text(`You will be warned in ${minutes} minute(s) and ${seconds} second(s).`);
-                }
-                if (warningTimeLeft === 0) {
-                    clearInterval(warningCountdown);
-                    showTimeoutWarning(); // Show the timeout warning when countdown reaches 0
-                }
-            }, 1000); // Update every second
-        }
+    //                 // Update the warning timer display with minutes and seconds
+    //                 $('#warningTimer').text(`You will be warned in ${minutes} minute(s) and ${seconds} second(s).`);
+    //             }
+    //             if (warningTimeLeft === 0) {
+    //                 clearInterval(warningCountdown);
+    //                 showTimeoutWarning(); // Show the timeout warning when countdown reaches 0
+    //             }
+    //         }, 1000); // Update every second
+    //     }
 
-        function showTimeoutWarning() {
-            const countdownElement = $('#countdownTimer');
-            let timeLeft = autoLogoutTime;
+    //     function showTimeoutWarning() {
+    //         const countdownElement = $('#countdownTimer');
+    //         let timeLeft = autoLogoutTime;
 
-            countdownElement.text(timeLeft);
+    //         countdownElement.text(timeLeft);
 
-            $('#sessionTimeoutModal').modal('show');
+    //         $('#sessionTimeoutModal').modal('show');
 
-            countdown = setInterval(function () {
-                timeLeft--;
-                if (timeLeft >= 0) {
-                    countdownElement.text(timeLeft); // Update the countdown timer display
-                } else {
-                    clearInterval(countdown);
-                    logoutUser();
-                }
-            }, 1000);
+    //         countdown = setInterval(function () {
+    //             timeLeft--;
+    //             if (timeLeft >= 0) {
+    //                 countdownElement.text(timeLeft); // Update the countdown timer display
+    //             } else {
+    //                 clearInterval(countdown);
+    //                 logoutUser();
+    //             }
+    //         }, 1000);
 
-            // Auto logout if no action within autoLogoutTime
-            autoLogoutTimeout = setTimeout(logoutUserTimeout, autoLogoutTime * 1000);
-        }
+    //         // Auto logout if no action within autoLogoutTime
+    //         autoLogoutTimeout = setTimeout(logoutUserTimeout, autoLogoutTime * 1000);
+    //     }
 
-        function resetTimeouts() {
-            clearTimeout(timeoutWarning);
-            clearTimeout(autoLogoutTimeout);
-            clearInterval(countdown);
-            clearInterval(warningCountdown); // Stop the warning countdown
-            $('#sessionTimeoutModal').modal('hide');
-        }
+    //     function resetTimeouts() {
+    //         clearTimeout(timeoutWarning);
+    //         clearTimeout(autoLogoutTimeout);
+    //         clearInterval(countdown);
+    //         clearInterval(warningCountdown); // Stop the warning countdown
+    //         $('#sessionTimeoutModal').modal('hide');
+    //     }
 
-        function logoutUser() {
-            $('#timeoutsbmt').click();
-        }
+    //     function logoutUser() {
+    //         $('#timeoutsbmt').click();
+    //     }
 
-        function logoutUserTimeout() {
-            // Get the input element by its ID
-            const inputElement = document.getElementById('logoutSessionPrompt');
+    //     function logoutUserTimeout() {
+    //         // Get the input element by its ID
+    //         const inputElement = document.getElementById('logoutSessionPrompt');
 
-            // Change the value of the input element
-            inputElement.value = 'Session Timeout. You have been signed out due to inactivity.';
+    //         // Change the value of the input element
+    //         inputElement.value = 'Session Timeout. You have been signed out due to inactivity.';
 
-            $('#timeoutsbmt').click();
-        }
+    //         $('#timeoutsbmt').click();
+    //     }
 
-        // Function to reset the warning countdown and timeout warning
-        function resetWarningTimer() {
-            // Clear the existing timeout for showing the warning
-            clearTimeout(timeoutWarning);
-            clearInterval(warningCountdown); // Clear the countdown if running
+    //     // Function to reset the warning countdown and timeout warning
+    //     function resetWarningTimer() {
+    //         // Clear the existing timeout for showing the warning
+    //         clearTimeout(timeoutWarning);
+    //         clearInterval(warningCountdown); // Clear the countdown if running
 
-            // Reset the warningTime countdown and timeout
-            startWarningCountdown();
-            timeoutWarning = setTimeout(showTimeoutWarning, warningTime * 1000);
-        }
+    //         // Reset the warningTime countdown and timeout
+    //         startWarningCountdown();
+    //         timeoutWarning = setTimeout(showTimeoutWarning, warningTime * 1000);
+    //     }
 
-        // Start the initial warning countdown
-        startWarningCountdown();
+    //     // Start the initial warning countdown
+    //     startWarningCountdown();
 
-        // Add event listeners for mousemove, click, keypress, and scroll to reset the timer
-        $(document).on('mousemove click keypress scroll', function () {
-            resetWarningTimer();
-        });
+    //     // Add event listeners for mousemove, click, keypress, and scroll to reset the timer
+    //     $(document).on('mousemove click keypress scroll', function () {
+    //         resetWarningTimer();
+    //     });
 
-        $('#stayLoggedInButton, #stayLoggedInButton2').click(function () {
-            // Send a request to keep the session alive
+    //     $('#stayLoggedInButton, #stayLoggedInButton2').click(function () {
+    //         // Send a request to keep the session alive
            
-            location.reload();
-        });
+    //         location.reload();
+    //     });
 
-        // Reset auto-logout if user interacts with the modal
-        $('#stayLoggedInButton, #stayLoggedInButton2, #timeoutsbmt').click(function() {
-            clearTimeout(autoLogoutTimeout);
-            clearTimeout(timeoutWarning);
-            clearInterval(countdown);
-            clearInterval(warningCountdown); // Stop the warning countdown if the user interacts
-        });
+    //     // Reset auto-logout if user interacts with the modal
+    //     $('#stayLoggedInButton, #stayLoggedInButton2, #timeoutsbmt').click(function() {
+    //         clearTimeout(autoLogoutTimeout);
+    //         clearTimeout(timeoutWarning);
+    //         clearInterval(countdown);
+    //         clearInterval(warningCountdown); // Stop the warning countdown if the user interacts
+    //     });
 
-    });
+    // });
 </script>
 </html>
