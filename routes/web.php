@@ -59,6 +59,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/generateinvoice', [Billing::class, 'generateInvoice'])->name('billing.generateinvoice');
     
         Route::get('/summary', [Billing::class, 'summary'])->name('billing.summary');
+        Route::get('/summary/view/{id}', [Billing::class, 'summaryView'])->name('billing.summary.view');
+        Route::get('/summary/edit/{id}', [Billing::class, 'summaryEdit'])->name('billing.summary.edit');
 
         Route::get('/invoiceitems', [Billing::class, 'invoiceItems'])->name('billing.invoiceitem');
     });

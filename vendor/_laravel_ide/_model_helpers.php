@@ -916,6 +916,8 @@ namespace App\Models {
     /**
      * App\Models\q8_invoice
      *
+     * @property \Illuminate\Support\Carbon|null $updated_at
+     * @property \Illuminate\Support\Carbon|null $created_at
      * @property string $commission
      * @property string $sales_representative
      * @property string $status
@@ -929,6 +931,8 @@ namespace App\Models {
      * @property string $invoice_date
      * @property string $invoice_id
      * @property int $id
+     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\q8_invoice_details> $invoice_details
+     * @property-read int|null $invoice_details_count
      * @method static \Illuminate\Database\Eloquent\Builder<q8_invoice>|q8_invoice whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<q8_invoice>|q8_invoice whereInvoiceId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<q8_invoice>|q8_invoice whereInvoiceDate($value)
@@ -942,6 +946,8 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<q8_invoice>|q8_invoice whereStatus($value)
      * @method static \Illuminate\Database\Eloquent\Builder<q8_invoice>|q8_invoice whereSalesRepresentative($value)
      * @method static \Illuminate\Database\Eloquent\Builder<q8_invoice>|q8_invoice whereCommission($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<q8_invoice>|q8_invoice whereCreatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<q8_invoice>|q8_invoice whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<q8_invoice>|q8_invoice newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<q8_invoice>|q8_invoice newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<q8_invoice>|q8_invoice query()
@@ -1217,6 +1223,8 @@ namespace App\Models {
     /**
      * App\Models\q8_invoice_details
      *
+     * @property \Illuminate\Support\Carbon|null $updated_at
+     * @property \Illuminate\Support\Carbon|null $created_at
      * @property string $item_total
      * @property string $item_unitprice
      * @property string $item_qty
@@ -1233,6 +1241,8 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<q8_invoice_details>|q8_invoice_details whereItemQty($value)
      * @method static \Illuminate\Database\Eloquent\Builder<q8_invoice_details>|q8_invoice_details whereItemUnitprice($value)
      * @method static \Illuminate\Database\Eloquent\Builder<q8_invoice_details>|q8_invoice_details whereItemTotal($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<q8_invoice_details>|q8_invoice_details whereCreatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<q8_invoice_details>|q8_invoice_details whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<q8_invoice_details>|q8_invoice_details newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<q8_invoice_details>|q8_invoice_details newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<q8_invoice_details>|q8_invoice_details query()

@@ -23,4 +23,12 @@ class q8_invoice extends Model
         'commission',
         // Add any other fields you need
     ];
+
+    public function invoice_details()
+    {
+        return $this->hasMany(q8_invoice_details::class, 'invoice_id', 'invoice_id');
+    }
+
+
+    
 }

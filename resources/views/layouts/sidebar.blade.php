@@ -77,12 +77,12 @@
       </a>
       <ul class="menu-sub">
         <li class="menu-item {{ request()->is('timetracking/checkin') ? 'active' : '' }}">
-          <a href="{{route('timetracking.checkin')}}" class="menu-link">
+          <a href="{{route('timetracking.checkin')}}" class="menu-link" >
             <div class="text-truncate" data-i18n="Checkin In/Out">Checkin In/Out</div>
           </a>
         </li>
         <li class="menu-item {{ request()->is('timetracking/amendments') ? 'active' : '' }}">
-          <a href="{{route('timetracking.amendments')}}" class="menu-link">
+          <a href="{{route('timetracking.amendments')}}" class="menu-link" >
             <div class="text-truncate" data-i18n="Amendments">Amendments</div>
           </a>
         </li>
