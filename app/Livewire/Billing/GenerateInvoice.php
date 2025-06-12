@@ -93,7 +93,7 @@ class GenerateInvoice extends Component
             $this->validate();
 
             // Insert the invoice into the database
-            q8_invoice::insert([
+            q8_invoice::create([
                 'invoice_id' => $this->invoice_id,
                 'invoice_no' => $this->invoice_no,
                 'invoice_date' => $this->invoice_date,
@@ -110,7 +110,7 @@ class GenerateInvoice extends Component
 
             // Insert invoice items
             foreach ($this->items as $item) {
-                q8_invoice_details::insert([
+                q8_invoice_details::create([
                     'invoice_id'    => $this->invoice_id,
                     'invoice_no'    => $this->invoice_no,
                     'item_date'     => $item['date'] ?? null,
