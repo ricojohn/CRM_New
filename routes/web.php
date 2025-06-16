@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 use App\Http\Controllers\Auth\Login;
 use App\Http\Controllers\Timetracking\checkin_out;
@@ -15,6 +17,7 @@ use App\Http\Controllers\Billing;
 use App\Http\Controllers\Roles\roles;
 use App\Http\Controllers\Twilio\call;
 use App\Http\Controllers\Twilio\sms;
+use App\Models\CallLog;
 use Twilio\Jwt\ClientToken;
 
 
@@ -104,20 +107,34 @@ Route::middleware(['auth'])->group(function () {
             ]);
         })->name('twilio.token');
 
-        // This returns TwiML for outgoing calls
-        Route::post('/voice-web', function (\Illuminate\Http\Request $request) {
-            $to = $request->input('To');
+        Route::post('/log-call-end', function (Request $request) {
+            $callStart = Carbon::parse($request->call_start); // parses ISO 8601
+            $callEnd = Carbon::parse($request->call_end);
 
-            $twiml = new \Twilio\TwiML\VoiceResponse();
+            $call = CallLog::insert([
+                'phone_number' => $request->number,
+                'call_start' => $callStart,
+                'call_end' => $callEnd,
+                'total_minutes' => $request->total_minutes,
+            ]);
 
-            if (preg_match('/^[\d\+\-\(\) ]+$/', $to)) {
-                $twiml->dial($to); // PSTN
-            } else {
-                $twiml->dial()->client($to); // Twilio Client
-            }
+            return response()->json(['success' => true, 'call' => $call]);
+        })->name('twilio.log-call-end');
 
-            return response($twiml, 200)->header('Content-Type', 'text/xml');
-        })->name('twilio.voice-web');
+        // // This returns TwiML for outgoing calls
+        // Route::post('/voice-web', function (\Illuminate\Http\Request $request) {
+        //     $to = $request->input('To');
+
+        //     $twiml = new \Twilio\TwiML\VoiceResponse();
+
+        //     if (preg_match('/^[\d\+\-\(\) ]+$/', $to)) {
+        //         $twiml->dial($to); // PSTN
+        //     } else {
+        //         $twiml->dial()->client($to); // Twilio Client
+        //     }
+
+        //     return response($twiml, 200)->header('Content-Type', 'text/xml');
+        // })->name('twilio.voice-web');
 
     });
 

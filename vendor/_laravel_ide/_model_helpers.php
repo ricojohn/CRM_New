@@ -5,8 +5,6 @@ namespace App\Models {
     /**
      * App\Models\CallLog
      *
-     * @property \Illuminate\Support\Carbon|null $updated_at
-     * @property \Illuminate\Support\Carbon|null $created_at
      * @property float|null $total_minutes
      * @property string|null $call_end
      * @property string|null $call_start
@@ -17,8 +15,6 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<CallLog>|CallLog whereCallStart($value)
      * @method static \Illuminate\Database\Eloquent\Builder<CallLog>|CallLog whereCallEnd($value)
      * @method static \Illuminate\Database\Eloquent\Builder<CallLog>|CallLog whereTotalMinutes($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<CallLog>|CallLog whereCreatedAt($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<CallLog>|CallLog whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<CallLog>|CallLog newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<CallLog>|CallLog newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<CallLog>|CallLog query()
