@@ -73,7 +73,8 @@
 
     </div>
 </div>
-<script src="https://media.twiliocdn.com/sdk/js/client/v1.13/twilio.min.js"></script>
+<script src="https://sdk.twilio.com/js/client/v1.13/twilio.min.js"></script>
+{{-- <script src="https://media.twiliocdn.com/sdk/js/client/v1.13/twilio.min.js"></script> --}}
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.data('phonePad', () => ({
@@ -112,6 +113,8 @@
         const callButton = document.getElementById('callButton');
         const hangupButton = document.getElementById('hangupButton');
         const logBox = document.getElementById('logOutput');
+        var callStartTime;
+        var callEndTime;
 
         // ✅ Initialize Twilio.Device
         fetch('{{ route('twilio.token') }}') // You must return a Twilio access token from this route
@@ -124,12 +127,42 @@
                 device.on('ready', () => log("📞 Twilio Device Ready"));
                 device.on('error', err => log("❌ Error: " + err.message));
                 device.on('connect', conn => log("✅ Call Connected"));
-                device.on('disconnect', conn => log("📴 Call Ended"));
+                device.on('disconnect', () => {
+                    log("📴 Call Ended")
+                    callEndTime = moment().tz('Asia/Manila');
+                    const number = phoneInput.value;
+                    var totalMinutes = Math.round((callEndTime - callStartTime) / 6000) / 10;
+
+                    // Laravel CSRF token (ensure this meta tag is in your Blade layout)
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                    fetch('{{ route('twilio.log-call-end') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        body: JSON.stringify({
+                            number: number,
+                            call_start: callStartTime.format(),
+                            call_end: callEndTime.format(),
+                            total_minutes: totalMinutes
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('✅ Call data saved:', data);
+                    })
+                    .catch(error => {
+                        console.error('❌ Error saving call data:', error);
+                    });
+                });
             });
 
         // ✅ Call action
         callButton.addEventListener('click', () => {
             const number = phoneInput.value;
+            callStartTime = moment().tz('Asia/Manila');
             if (!number) return alert("Enter a number to call.");
             if (!device) return alert("Twilio not initialized yet.");
             log("📲 Calling " + number + "...");
