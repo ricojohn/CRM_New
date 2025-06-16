@@ -54,7 +54,7 @@
                             <div class="dropdown-menu" style="">
                             <a class="dropdown-item" target="_blank" href="{{ route('billing.summary.edit',  $invoice->invoice_id) }}"><i class="bx bx-edit-alt me-1"></i>Edit</a>
                             <button type="button" class="dropdown-item" wire:click="openDeleteModal('{{ $invoice->invoice_id}}', '{{ $invoice->invoice_no }}')"><i class="bx bx-trash me-1"></i>Delete</button>
-                            <a class="dropdown-item" target="_blank" href="{{ route('billing.summary.view',  $invoice->invoice_id) }}"><i class="bx bx-collection me-1"></i>View</a>
+                            <buton type="button" class="dropdown-item" ><i class="bx bx-envelope me-1"></i>Send</buton>
                             <a class="dropdown-item" target="_blank" href="{{ route('billing.summary.view',  $invoice->invoice_id) }}"><i class="bx bx-collection me-1"></i>View</a>
                             </div>
                         </div>

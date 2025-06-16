@@ -436,39 +436,7 @@
           });
         }, 300); // Small delay to ensure DOM is ready
       });
-      
-      // Function for CKEditor initialization
-      // function ckeditorINIT(id) {
-      //   // Check if CKEditor instance exists and destroy it
-      //   if (CKEDITOR.instances[id]) {
-      //     CKEDITOR.instances[id].destroy(true);
-      //   }
-      //   // Initialize CKEditor
-      //   CKEDITOR.replace(id, {
-      //     extraPlugins: 'editorplaceholder,font',
-      //     editorplaceholder: $("#" + id).attr("placeholder"),
-      //     height: 192,
-      //     toolbar: [{
-      //       name: 'document',
-      //       items: ['Source', '-', 'NewPage', 'Preview']
-      //     }, {
-      //       name: 'clipboard',
-      //       items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']
-      //     }, {
-      //       name: 'basicstyles',
-      //       items: ['Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'BulletedList', 'NumberedList']
-      //     }, {
-      //       name: 'styles',
-      //       items: ['Styles', 'Format', 'Font', 'FontSize']
-      //     }, {
-      //       name: 'colors',
-      //       items: ['TextColor', 'BGColor']
-      //     }, {
-      //       name: 'tools',
-      //       items: ['Maximize']
-      //     }, ],
-      //   });
-      // }
+     
       const toastPlacementExample = document.querySelector('.toast-placement-ex'), toastPlacementBtn = document.querySelector('#showToastPlacement'), toastbody = document.querySelector('.toast-body');
       let selectedType, selectedPlacement, toastPlacement;
 
