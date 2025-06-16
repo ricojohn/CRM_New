@@ -172,6 +172,29 @@
         </ul>
       </li>
     @endcan
+
+    <!-- Twilio -->
+    {{-- @can('Twilio') --}}
+      <li class="menu-item {{ request()->is('twilio*') ? 'active open' : '' }}">
+        <a href="" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-phone"></i>
+          <div class="text-truncate" data-i18n="Twilio">Twilio</div>
+        </a>
+
+        <ul class="menu-sub">
+          <li class="menu-item {{ request()->is('twilio/call') ? 'active' : '' }}">
+            <a href="{{route('twilio.call')}}" class="menu-link">
+              <div class="text-truncate" data-i18n="Twilio">Call</div>
+            </a>
+          </li>
+          <li class="menu-item {{ request()->is('twilio/sms') ? 'active' : '' }}">
+            <a href="{{route('twilio.sms')}}" class="menu-link">
+              <div class="text-truncate" data-i18n="Twilio">SMS</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+    {{-- @endcan --}}
     
 
     <!-- Front Pages -->

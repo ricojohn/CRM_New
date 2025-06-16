@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Auth\Login;
 use App\Http\Controllers\Timetracking\checkin_out;
@@ -12,6 +13,11 @@ use App\Http\Controllers\Client\clientList;
 use App\Http\Controllers\Client\quotation;
 use App\Http\Controllers\Billing;
 use App\Http\Controllers\Roles\roles;
+use App\Http\Controllers\Twilio\call;
+use App\Http\Controllers\Twilio\sms;
+use Twilio\Jwt\ClientToken;
+
+
 
 // Route::get('/test', function () {
 //     return view('index');
@@ -64,5 +70,57 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/invoiceitems', [Billing::class, 'invoiceItems'])->name('billing.invoiceitem');
     });
+
+    Route::prefix('twilio')->group(function() {
+        Route::get('/test-call', [call::class, 'call']);
+
+        Route::get('/call', [call::class, 'index'])->name('twilio.call');
+    
+        Route::get('/sms', [sms::class, 'index'])->name('twilio.sms');
+
+        Route::post('/voice', function () {
+            return response('<?xml version="1.0" encoding="UTF-8"?>
+                <Response>
+                    <Say voice="alice">Hello! This is a test call from your Laravel app.</Say>
+                </Response>', 200)
+                ->header('Content-Type', 'text/xml');
+        })->name(name: 'twilio.voice');
+
+        // Generate token for browser Twilio Client
+        Route::get('/token', function () {
+            $identity = Auth::id() ? 'user_' . Auth::id() : 'guest_' . uniqid();
+
+            $capability = new ClientToken(
+                config('services.twilio.sid'),
+                config('services.twilio.token')
+            );
+
+            $capability->allowClientOutgoing(config('services.twilio.app_sid'));
+            $capability->allowClientIncoming($identity);
+
+            return response()->json([
+                'identity' => $identity,
+                'token' => $capability->generateToken(),
+            ]);
+        })->name('twilio.token');
+
+        // This returns TwiML for outgoing calls
+        Route::post('/voice-web', function (\Illuminate\Http\Request $request) {
+            $to = $request->input('To');
+
+            $twiml = new \Twilio\TwiML\VoiceResponse();
+
+            if (preg_match('/^[\d\+\-\(\) ]+$/', $to)) {
+                $twiml->dial($to); // PSTN
+            } else {
+                $twiml->dial()->client($to); // Twilio Client
+            }
+
+            return response($twiml, 200)->header('Content-Type', 'text/xml');
+        })->name('twilio.voice-web');
+
+    });
+
+
 });
 
