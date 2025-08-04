@@ -287,7 +287,7 @@
                 </div>
               </div>
               <div class="mb-2 row g-6">
-                <div class="col-lg-6 " >
+                <div class="col-lg-6" >
                   <div wire:ignore>
                     <label for="dob" class="form-label">DOB</label>
                     <input
