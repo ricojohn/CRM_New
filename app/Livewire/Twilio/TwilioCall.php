@@ -1,11 +1,25 @@
 <?php
 
 namespace App\Livewire\Twilio;
+
+use App\Http\Controllers\Twilio\call;
+use Illuminate\Support\Facades\DB;
 use App\Services\TwilioService;
 use Livewire\Component;
+use App\Models\CallLog;
+use Livewire\WithPagination;
 
 class TwilioCall extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+
+    public $search = '';
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
     public $phone;
     public $status;
 
@@ -31,6 +45,14 @@ class TwilioCall extends Component
     
     public function render()
     {
-        return view('livewire.twilio.twilio-call');
+        // Fetch call logs
+        $callLogs = DB::table('calls')
+        ->where('phone_number', 'like', '%' . $this->search . '%')
+        ->orderBy('call_start', 'DESC')
+        ->paginate(5);
+
+        return view('livewire.twilio.twilio-call',[
+            'callLogs' => $callLogs
+        ]);
     }
 }
