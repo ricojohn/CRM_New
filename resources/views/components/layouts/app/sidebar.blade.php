@@ -104,7 +104,7 @@
             <div class="toast-header">
               <i class="bx bx-bell me-2"></i>
               <div class="me-auto fw-medium">Status</div>
-              <small>Now</small>
+              <small>0 mins</small>
               <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
             <div class="toast-body"></div>
@@ -116,7 +116,8 @@
 
             <div class="container flex-grow-1 container-p-y">
               <div >
-                @yield('content')
+                {{-- @yield('content') --}}
+                {{ $slot }}
               </div>
             </div>
             <!-- / Content -->
@@ -128,7 +129,9 @@
                   class="py-4 footer-container d-flex align-items-center justify-content-between flex-md-row flex-column">
                   <div class="text-body">
                     ©
-                    {{ date('Y') }}
+                    {{-- <script>
+                      document.write(new Date().getFullYear());
+                    </script> --}}
                     , made with ❤️ by
                     {{-- <a href="https://themeselection.com" target="_blank" class="footer-link">ThemeSelection</a> --}}
                   </div>

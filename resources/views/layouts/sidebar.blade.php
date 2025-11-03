@@ -195,7 +195,6 @@
         </ul>
       </li>
     {{-- @endcan --}}
-    
 
     <!-- Front Pages -->
     <li class="menu-item">

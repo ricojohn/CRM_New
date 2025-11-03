@@ -26,7 +26,6 @@ use Twilio\Jwt\ClientToken;
 //     return view('index');
 // });
 
-
 // authentication
 Route::get('/', [Login::class, 'index']);
 Route::post('/', [Login::class, 'login'])->name('auth.login');
