@@ -104,7 +104,7 @@
             <div class="toast-header">
               <i class="bx bx-bell me-2"></i>
               <div class="me-auto fw-medium">Status</div>
-              <small>0 mins</small>
+              <small>Now</small>
               <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
             <div class="toast-body"></div>
@@ -128,9 +128,7 @@
                   class="py-4 footer-container d-flex align-items-center justify-content-between flex-md-row flex-column">
                   <div class="text-body">
                     ©
-                    <script>
-                      document.write(new Date().getFullYear());
-                    </script>
+                    {{ date('Y') }}
                     , made with ❤️ by
                     {{-- <a href="https://themeselection.com" target="_blank" class="footer-link">ThemeSelection</a> --}}
                   </div>

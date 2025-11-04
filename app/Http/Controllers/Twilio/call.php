@@ -21,15 +21,15 @@ class call extends Controller
 
     }
 
-    // public function call()
-    // {
-    //     try {
-    //         $twilio = new TwilioService();
-    //         $twilio->makeCall('+639565180282', route('twilio.voice')); // Replace with real number
-    //         return 'Call started!';
-    //     } catch (\Exception $e) {
-    //         logger()->error('Twilio call error: ' . $e->getMessage());
-    //         dd('Failed to make call: ' . $e->getMessage());
-    //     }
-    // }
+    public function call()
+    {
+        try {
+            $twilio = new TwilioService();
+            $twilio->makeCall('+639957802471', route('twilio.voice')); // Replace with real number
+            return 'Call started!';
+        } catch (\Exception $e) {
+            logger()->error('Twilio call error: ' . $e->getMessage());
+            dd('Failed to make call: ' . $e->getMessage());
+        }
+    }
 }
