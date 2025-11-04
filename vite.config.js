@@ -8,7 +8,7 @@ export default defineConfig({
                 'resources/css/app.css', 
                 'resources/js/app.js',
                 'resources/js/custom.js',
-                'resources/js/custom.css',
+                // 'resources/js/custom.css',
                 // 'public/assets/js/main.js',
                 // 'public/assets/vendor/libs/apex-charts/apexcharts.js',
                 // 'public/assets/vendor/js/menu.js',
