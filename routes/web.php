@@ -18,7 +18,9 @@ use App\Http\Controllers\Roles\roles;
 use App\Http\Controllers\Twilio\call;
 use App\Http\Controllers\Twilio\sms;
 use App\Models\CallLog;
-use Twilio\Jwt\ClientToken;
+// use Twilio\Jwt\ClientToken;
+use Twilio\Jwt\AccessToken;
+use Twilio\Jwt\Grants\VoiceGrant;
 
 
 
@@ -90,20 +92,47 @@ Route::middleware(['auth'])->group(function () {
 
         // Generate token for browser Twilio Client
         Route::get('/token', function () {
-            $identity = Auth::id() ? 'user_' . Auth::id() : 'guest_' . uniqid();
+            $twilioAccountSid = config('services.twilio.sid');
+            $twilioApiKey = config('services.twilio.api_key');
+            $twilioApiSecret = config('services.twilio.api_secret');
+            $twimlAppSid = config('services.twilio.app_sid');
+            $identity = Auth::check() ? 'user_' . Auth::id() : 'guest_' . uniqid();
+            // $identity = Auth::id() ? 'user_' . Auth::id() : 'guest_' . uniqid();
 
-            $capability = new ClientToken(
-                config('services.twilio.sid'),
-                config('services.twilio.token')
+            // $capability = new ClientToken(
+            //     config('services.twilio.sid'),
+            //     config('services.twilio.token')
+            // );
+            // Create access token
+            $token = new AccessToken(
+                $twilioAccountSid,
+                $twilioApiKey,
+                $twilioApiSecret,
+                3600,
+                $identity
             );
 
-            $capability->allowClientOutgoing(config('services.twilio.app_sid'));
-            $capability->allowClientIncoming($identity);
+            // Create a Voice grant
+            $voiceGrant = new VoiceGrant();
+            $voiceGrant->setOutgoingApplicationSid($twimlAppSid);
+            $voiceGrant->setIncomingAllow(true);
+
+            // Add grant to token
+            $token->addGrant($voiceGrant);
 
             return response()->json([
                 'identity' => $identity,
-                'token' => $capability->generateToken(),
+                'token' => $token->toJWT(),
             ]);
+
+
+            // $capability->allowClientOutgoing(config('services.twilio.app_sid'));
+            // $capability->allowClientIncoming($identity);
+
+            // return response()->json([
+            //     'identity' => $identity,
+            //     'token' => $capability->generateToken(),
+            // ]);
         })->name('twilio.token');
 
         Route::post('/log-call-end', function (Request $request) {

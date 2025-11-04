@@ -161,6 +161,10 @@ class ApplicationBuilder
     {
         if (is_null($using) && (is_string($web) || is_array($web) || is_string($api) || is_array($api) || is_string($pages) || is_string($health)) || is_callable($then)) {
             $using = $this->buildRoutingCallback($web, $api, $pages, $health, $apiPrefix, $then);
+
+            if (is_string($health)) {
+                PreventRequestsDuringMaintenance::except($health);
+            }
         }
 
         AppRouteServiceProvider::loadRoutesUsing($using);
@@ -212,8 +216,6 @@ class ApplicationBuilder
             }
 
             if (is_string($health)) {
-                PreventRequestsDuringMaintenance::except($health);
-
                 Route::get($health, function () {
                     $exception = null;
 
@@ -273,7 +275,7 @@ class ApplicationBuilder
     {
         $this->app->afterResolving(HttpKernel::class, function ($kernel) use ($callback) {
             $middleware = (new Middleware)
-                ->redirectGuestsTo(fn () => route('auth.login'));
+                ->redirectGuestsTo(fn () => route('login'));
 
             if (! is_null($callback)) {
                 $callback($middleware);

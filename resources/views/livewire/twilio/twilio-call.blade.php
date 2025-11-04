@@ -112,8 +112,6 @@
             </div>
     </div>
 </div>
-<script src="https://sdk.twilio.com/js/client/v1.13/twilio.min.js"></script>
-{{-- <script src="https://media.twiliocdn.com/sdk/js/client/v1.13/twilio.min.js"></script> --}}
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.data('phonePad', () => ({
@@ -147,92 +145,92 @@
             }
         }));
     });
-    document.addEventListener('DOMContentLoaded', () => {
-        const phoneInput = document.getElementById('phoneInput');
-        const callButton = document.getElementById('callButton');
-        const hangupButton = document.getElementById('hangupButton');
-        const logBox = document.getElementById('logOutput');
-        var callStartTime;
-        var callEndTime;
+    // document.addEventListener('DOMContentLoaded', () => {
+    //     const phoneInput = document.getElementById('phoneInput');
+    //     const callButton = document.getElementById('callButton');
+    //     const hangupButton = document.getElementById('hangupButton');
+    //     const logBox = document.getElementById('logOutput');
+    //     var callStartTime;
+    //     var callEndTime;
 
-        // ✅ Initialize Twilio.Device
-        fetch('{{ route('twilio.token') }}') // You must return a Twilio access token from this route
-            .then(res => res.json())
-            .then(data => {
-                device = new Twilio.Device(data.token, {
-                    debug: true
-                });
+    //     // ✅ Initialize Twilio.Device
+    //     fetch('{{ route('twilio.token') }}') // You must return a Twilio access token from this route
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             device = new Twilio.Device(data.token, {
+    //                 debug: true
+    //             });
 
-                device.on('ready', () => log("> 📞 Twilio Device Ready"));
-                device.on('error', err => log("> ❌ Error: " + err.message));
-                device.on('connect', conn => log("> ✅ Call Connected"));
-                device.on('disconnect', () => {
-                    log("> 📴 Call Ended")
-                    callEndTime = moment().tz('Asia/Manila');
-                    const number = phoneInput.value;
-                    var totalMinutes = Math.round((callEndTime - callStartTime) / 6000) / 10;
+    //             device.on('ready', () => log("> 📞 Twilio Device Ready"));
+    //             device.on('error', err => log("> ❌ Error: " + err.message));
+    //             device.on('connect', conn => log("> ✅ Call Connected"));
+    //             device.on('disconnect', () => {
+    //                 log("> 📴 Call Ended")
+    //                 callEndTime = moment().tz('Asia/Manila');
+    //                 const number = phoneInput.value;
+    //                 var totalMinutes = Math.round((callEndTime - callStartTime) / 6000) / 10;
 
-                    // Laravel CSRF token (ensure this meta tag is in your Blade layout)
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    //                 // Laravel CSRF token (ensure this meta tag is in your Blade layout)
+    //                 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-                    fetch('{{ route('twilio.log-call-end') }}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken
-                        },
-                        body: JSON.stringify({
-                            number: number,
-                            call_start: callStartTime.format(),
-                            call_end: callEndTime.format(),
-                            total_minutes: totalMinutes
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('✅ Call data saved:', data);
-                    })
-                    .catch(error => {
-                        console.error('❌ Error saving call data:', error);
-                    });
-                });
-            });
+    //                 fetch('{{ route('twilio.log-call-end') }}', {
+    //                     method: 'POST',
+    //                     headers: {
+    //                         'Content-Type': 'application/json',
+    //                         'X-CSRF-TOKEN': csrfToken
+    //                     },
+    //                     body: JSON.stringify({
+    //                         number: number,
+    //                         call_start: callStartTime.format(),
+    //                         call_end: callEndTime.format(),
+    //                         total_minutes: totalMinutes
+    //                     })
+    //                 })
+    //                 .then(response => response.json())
+    //                 .then(data => {
+    //                     console.log('✅ Call data saved:', data);
+    //                 })
+    //                 .catch(error => {
+    //                     console.error('❌ Error saving call data:', error);
+    //                 });
+    //             });
+    //         });
 
-        // ✅ Call action
-        callButton.addEventListener('click', () => {
-            const number = phoneInput.value;
-            callStartTime = moment().tz('Asia/Manila');
-            if (!number) return alert("Enter a number to call.");
-            if (!device) return alert("Twilio not initialized yet.");
-            log("> 📲 Calling " + number + "...");
-            device.connect({ To: number });
-        });
+    //     // ✅ Call action
+    //     callButton.addEventListener('click', () => {
+    //         const number = phoneInput.value;
+    //         callStartTime = moment().tz('Asia/Manila');
+    //         if (!number) return alert("Enter a number to call.");
+    //         if (!device) return alert("Twilio not initialized yet.");
+    //         log("> 📲 Calling " + number + "...");
+    //         device.connect({ To: number });
+    //     });
 
-        // ✅ Hangup action
-        hangupButton.addEventListener('click', () => {
-            if (device) {
-                log("> 🛑 Hanging up...");
-                device.disconnectAll();
-            }
-        });
+    //     // ✅ Hangup action
+    //     hangupButton.addEventListener('click', () => {
+    //         if (device) {
+    //             log("> 🛑 Hanging up...");
+    //             device.disconnectAll();
+    //         }
+    //     });
 
-        // ✅ Log messages
-        function log(msg) {
-            const p = document.createElement('div');
-            p.textContent = msg;
-            p.className = 'text-muted small mb-1';
-            p.style.whiteSpace = 'pre-wrap'; // Preserve whitespace
-            p.style.wordBreak = 'break-word'; // Break long words
-            p.style.overflowWrap = 'break-word'; // Ensure long words break
-            p.style.maxWidth = '100%'; // Prevent overflow
-            p.style.textAlign = 'left'; // Align text to the left
-            p.style.fontSize = '1.5rem'; // Smaller font size for better readability
-            p.style.lineHeight = '1.5'; // Increase line height for better readability
-            p.style.marginBottom = '0.5rem'; // Add some space between log entries
-            p.style.fontFamily = 'monospace'; // Use monospace font for better alignment
-            logBox.appendChild(p);
-            logBox.scrollTop = logBox.scrollHeight;
-        }
+    //     // ✅ Log messages
+    //     function log(msg) {
+    //         const p = document.createElement('div');
+    //         p.textContent = msg;
+    //         p.className = 'text-muted small mb-1';
+    //         p.style.whiteSpace = 'pre-wrap'; // Preserve whitespace
+    //         p.style.wordBreak = 'break-word'; // Break long words
+    //         p.style.overflowWrap = 'break-word'; // Ensure long words break
+    //         p.style.maxWidth = '100%'; // Prevent overflow
+    //         p.style.textAlign = 'left'; // Align text to the left
+    //         p.style.fontSize = '1.5rem'; // Smaller font size for better readability
+    //         p.style.lineHeight = '1.5'; // Increase line height for better readability
+    //         p.style.marginBottom = '0.5rem'; // Add some space between log entries
+    //         p.style.fontFamily = 'monospace'; // Use monospace font for better alignment
+    //         logBox.appendChild(p);
+    //         logBox.scrollTop = logBox.scrollHeight;
+    //     }
 
-    });
+    // });
 </script>

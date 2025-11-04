@@ -40,6 +40,8 @@ return [
         'whatsapp_from' => env('TWILIO_WHATSAPP_FROM'),
         'app_sid' => env('TWILIO_APP_SID'),
         'voice_from'    => env('TWILIO_VOICE_FROM'),
+        'api_key' => env('TWILIO_API_KEY'),
+        'api_secret' => env('TWILIO_API_SECRET'),
     ],
 
 ];
