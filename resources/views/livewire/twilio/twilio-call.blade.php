@@ -1,7 +1,7 @@
 <div class="row">
     <div class="p-4 border rounded card col-12">
         <div class="card-header">
-            <h2 class="Card Header">Outbound Call</h2>
+            <h2 class="Card Header">Outbound Call +</h2>
         </div>
         <div class="card-body">
             <div x-data="phonePad" x-init="init()">
